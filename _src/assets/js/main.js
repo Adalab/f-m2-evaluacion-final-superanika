@@ -2,6 +2,7 @@
 
 const button = document.querySelector('.button');
 const results = document.querySelector('.results');
+const favSeriesList = document.querySelector('.fav__series');
 
 function getSeries(){
   const url = 'http://api.tvmaze.com/search/shows?q=';
@@ -11,7 +12,7 @@ function getSeries(){
     .then( response => response.json())
     .then (data => {
       createList(data);
-      favorite();
+      fav();
     });
 }
 
@@ -38,12 +39,37 @@ function createList(data){
     listItem.appendChild(seriePreview); 
   }
 }
-function favorite() {
+function fav() {
   const allSeries = document.querySelectorAll('.list__item');
+  const favSeries = [];
+  const favDiv = document.querySelector('.fav__list');
+
   for (const item of allSeries) {
-    item.addEventListener('click', function(){item.classList.toggle('fav');});
+    function favList() {
+      item.classList.toggle('fav');
+      if(item.classList.contains('fav')){
+        favSeries.push(item);
+        if (favSeries.length !== 0){
+            favDiv.classList.remove('hidden');
+            for (const favItem of favSeries) {
+            favSeriesList.appendChild(favItem);
+            }
+        }else {
+            favDiv.classList.add('hidden');
+        }
+      }
+      console.log(favSeries);
+    }
+   
+    item.addEventListener('click', favList);
+
   }
 }
+function createFavList() {
+  
+}
+
+
 
 function searchSeries() {
   results.innerHTML = '';
