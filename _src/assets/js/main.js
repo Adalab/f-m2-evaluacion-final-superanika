@@ -3,6 +3,7 @@
 const button = document.querySelector('.button');
 const results = document.querySelector('.results');
 const favSeriesList = document.querySelector('.fav__series');
+const favDiv = document.querySelector('.fav__list');
 
 //obtenemos los datos de la api
 function getSeries(){
@@ -13,7 +14,6 @@ function getSeries(){
     .then( response => response.json())
     .then (data => {
       createList(data); //creamos la lista
-      fav(); //añadimos la clase fav y creamos la lista de favoritos
     });
 }
 
@@ -24,6 +24,7 @@ function createList(data){
     const image = series.image;
     const listItem = document.createElement('li');
     listItem.classList.add('list__item');
+    listItem.addEventListener('click', addFavorite);
     results.appendChild(listItem);
     const serieName = document.createElement('h2');
     serieName.classList.add('serie__title');
@@ -41,57 +42,84 @@ function createList(data){
     listItem.appendChild(seriePreview);
   }
 }
-//creamos un objeto vacio para luego almacenar los datos de la serie favorita
 
+// Pintar el listado de favorito en pantalla
+function createFavorites() {
+  // Recuperar los favoritos
+  const savedFav = JSON.parse(localStorage.getItem('savedFav'));
 
-function fav() {
-  const allSeries = document.querySelectorAll('.list__item');
-  const favDiv = document.querySelector('.fav__list');
+  // Pintar titulo de series favoritas si hay alguna en favoritos
+  if (savedFav !== null && savedFav.length > 0) {
+    favDiv.classList.remove('hidden');
+    // Pintamos el listado de series favoritas
+    for (const item of savedFav) {
+      const favItem = document.createElement('li');
+      favItem.classList.add('fav__list-item');
+      const favTitle = document.createElement('h3');
+      favTitle.classList.add('fav__title');
+      const favTitleContent = document.createTextNode(item.title);
+      const favImg = document.createElement('img');
+      favImg.classList.add('fav_img');
+      favImg.src = item.image;
+      favTitle.appendChild(favTitleContent);
+      favItem.appendChild(favTitle);
+      favItem.appendChild(favImg);
+      favSeriesList.appendChild(favItem);
+    }
+  } else{
+    favDiv.classList.add('hidden');
+  }
+  
+}
+
+// Pone la clase de favorito al item y añadirlo a localstorage
+function addFavorite(event) {
+  // Añadir la clase favorito
+  event.currentTarget.classList.add('fav');
+
+  // Recuperar informacion item
   let infoFav = {
     title: '',
     image: ''
   };
-  for (const item of allSeries) {
-    // eslint-disable-next-line no-inner-declarations
-    function favList() {
-      //añade la clase favorita
-      item.classList.add('fav');
-      infoFav.title = item.firstChild.innerHTML;
-      infoFav.image = item.lastChild.src;
-      //pintamos la lista de favoritos
-      if (infoFav.title !== ''){
-        favDiv.classList.remove('hidden');
-        const favItem = document.createElement('li');
-        favItem.classList.add('fav__list-item');
-        const favTitle = document.createElement('h3');
-        favTitle.classList.add('fav__title');
-        const favTitleContent = document.createTextNode(infoFav.title);
-        const favImg = document.createElement('img');
-        favImg.classList.add('fav_img');
-        favImg.src = infoFav.image;
-        favTitle.appendChild(favTitleContent);
-        favItem.appendChild(favTitle);
-        favItem.appendChild(favImg);
-        favSeriesList.appendChild(favItem);
 
-        let savedFav = JSON.parse(localStorage.getItem('savedFav'));
+  infoFav.title = event.currentTarget.firstChild.innerHTML;
+  infoFav.image = event.currentTarget.lastChild.src;
 
-        if (savedFav !== null) {
-          savedFav.push(infoFav);
-        }else {
-          savedFav = [];
-          savedFav.push(infoFav);
-        }
-        localStorage.setItem('savedFav', JSON.stringify(savedFav));
-
-      }else {
-        favDiv.classList.add('hidden');
-      }
-    }
-    item.addEventListener('click', favList);
+  // Recuperar favoritos que tengo guardado en localstorage
+  let savedFav = JSON.parse(localStorage.getItem('savedFav'));
+  if (savedFav === null) {
+    savedFav = [];
   }
+  if (!alreadyExist(savedFav, infoFav)) {
+    savedFav.push(infoFav);
+    localStorage.setItem('savedFav', JSON.stringify(savedFav));
+
+    // Crear el favorito en pantalla
+    const favItem = document.createElement('li');
+    favItem.classList.add('fav__list-item');
+    const favTitle = document.createElement('h3');
+    favTitle.classList.add('fav__title');
+    const favTitleContent = document.createTextNode(infoFav.title);
+    const favImg = document.createElement('img');
+    favImg.classList.add('fav_img');
+    favImg.src = infoFav.image;
+    favTitle.appendChild(favTitleContent);
+    favItem.appendChild(favTitle);
+    favItem.appendChild(favImg);
+    favSeriesList.appendChild(favItem);
+  }
+
 }
 
+function alreadyExist(savedFav, infoFav) {
+  for (const item of savedFav) {
+    if (item.title === infoFav.title) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function searchSeries() {
   results.innerHTML = '';
@@ -99,7 +127,7 @@ function searchSeries() {
 
 }
 
-JSON.parse(localStorage.getItem('savedFav'));
 button.addEventListener('click',searchSeries);
 
+createFavorites();
 
