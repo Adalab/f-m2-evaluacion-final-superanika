@@ -36,7 +36,7 @@ function createList(data){
     }else {
       seriePreview.src = image.medium;
     }
-    listItem.appendChild(seriePreview); 
+    listItem.appendChild(seriePreview);
   }
 }
 function fav() {
@@ -45,37 +45,39 @@ function fav() {
   const favDiv = document.querySelector('.fav__list');
 
   for (const item of allSeries) {
+    // eslint-disable-next-line no-inner-declarations
     function favList() {
-      item.classList.toggle('fav');
-      if(item.classList.contains('fav')){
-        favSeries.push(item);
-        if (favSeries.length !== 0){
-            favDiv.classList.remove('hidden');
-            for (const favItem of favSeries) {
-            favSeriesList.appendChild(favItem);
-            }
-        }else {
-            favDiv.classList.add('hidden');
+      item.classList.add('fav');
+      //if(item.classList.contains('fav')){
+      favSeries.push(item);
+      if (favSeries.length !== 0){
+        favDiv.classList.remove('hidden');
+        for (const favItem of favSeries) {
+          favSeriesList.appendChild(favItem);
         }
+      }else {
+        favDiv.classList.add('hidden');
       }
-      console.log(favSeries);
+      const allFavs = document.querySelectorAll('.fav');
+      for (const favs of allFavs) {
+        localStorage.setItem('savedFav', JSON.stringify(favs));
+      }
     }
-   
     item.addEventListener('click', favList);
-
   }
 }
-function createFavList() {
-  
-}
+
+
 
 
 
 function searchSeries() {
   results.innerHTML = '';
   getSeries();
- 
+
 }
 
+//JSON.parse(localStorage.getItem('savedFav'));
 button.addEventListener('click',searchSeries);
+
 
