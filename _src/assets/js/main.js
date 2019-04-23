@@ -56,18 +56,20 @@ function createList(data){
   }
 }
 
-function createFavs(array) {
+function createFavs(object) {
   const favItem = document.createElement('li');
   favItem.classList.add('fav__list-item');
   const icon = document.createElement('i');
   icon.classList.add('fas');
   icon.classList.add('fa-times-circle');
+  icon.classList.add('delete__icon');
+  icon.addEventListener('click', deleteFavs);
   const favTitle = document.createElement('h3');
   favTitle.classList.add('fav__series-title');
-  const favTitleContent = document.createTextNode(array.title);
+  const favTitleContent = document.createTextNode(object.title);
   const favImg = document.createElement('img');
   favImg.classList.add('fav_img');
-  favImg.src = array.image;
+  favImg.src = object.image;
   favTitle.appendChild(favTitleContent);
   favItem.appendChild(icon);
   favItem.appendChild(favTitle);
@@ -83,8 +85,6 @@ function showSavedFavorites() {
     for (const item of savedFav) {
       createFavs(item);
     }
-  } else{
-    favDiv.classList.add('hidden');
   }
 }
 
@@ -106,8 +106,25 @@ function addFavorite(event) {
   if (!alreadyExist(savedFav, infoFav)) {
     savedFav.push(infoFav);
     localStorage.setItem('savedFav', JSON.stringify(savedFav));
-
-    createFavs(infoFav);
+    const favItem = document.createElement('li');
+    favItem.classList.add('fav__list-item');
+    const icon = document.createElement('i');
+    icon.classList.add('fas');
+    icon.classList.add('fa-times-circle');
+    icon.classList.add('delete__icon');
+    icon.addEventListener('click', deleteFavs);
+    const favTitle = document.createElement('h3');
+    favTitle.classList.add('fav__series-title');
+    const favTitleContent = document.createTextNode(infoFav.title);
+    const favImg = document.createElement('img');
+    favImg.classList.add('fav_img');
+    favImg.src = infoFav.image;
+    favTitle.appendChild(favTitleContent);
+    favItem.appendChild(icon);
+    favItem.appendChild(favTitle);
+    favItem.appendChild(favImg);
+    favSeriesList.appendChild(favItem);
+    favDiv.classList.remove('hidden');
   }
 }
 
@@ -118,6 +135,11 @@ function alreadyExist(savedFav, infoFav) {
     }
   }
   return false;
+}
+
+function deleteFavs() {
+  const trigger = event.currentTarget;
+  trigger.parentElement.classList.add('hidden');
 }
 
 function searchSeries() {
