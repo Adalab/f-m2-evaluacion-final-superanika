@@ -4,12 +4,14 @@
 	<meta charset="UTF-8">
 	<title>Superanika's module 2 final exercise</title>
   <link rel="icon" href="favicon.png"/>
-	<link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="page">
-    <nav class="nav">
+  <header>
       <h1 class="title">Buscador de series</h1>
+  </header>
+  <div class="content">
+    <nav class="nav">
       <div class="search__field">
         <input type="text" class="input">
         <button class="button">Search</button>
@@ -20,9 +22,9 @@
       </div>
     </nav>
     <main class="main">
+      <div class="no__results"></div>
       <ul class="results"></ul>
     </main>
-    
   </div>
   <script src="assets/js/main.js"></script>
 </body>

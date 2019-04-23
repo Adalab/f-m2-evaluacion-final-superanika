@@ -4,6 +4,8 @@ const button = document.querySelector('.button');
 const results = document.querySelector('.results');
 const favSeriesList = document.querySelector('.fav__series');
 const favDiv = document.querySelector('.fav__list');
+const main = document.querySelector('.main');
+const noResults = document.querySelector('.no__results');
 
 //obtenemos los datos de la api
 function getSeries(){
@@ -13,8 +15,21 @@ function getSeries(){
   fetch(url + inputValue)
     .then( response => response.json())
     .then (data => {
-      createList(data); //creamos la lista
+      noResults.innerHTML = '';
+      if (data.length === 0){
+        errorMsg();
+      }else {
+        createList(data); //creamos la lista
+      }
     });
+}
+function errorMsg() {
+  const error = document.createElement('p');
+  const errorMessage = document.createTextNode('La búsqueda realizada no ha obtenido resultados');
+  error.classList.add('error');
+  error.appendChild(errorMessage);
+  noResults.appendChild(error);
+  main.appendChild(noResults);
 }
 
 function createList(data){
