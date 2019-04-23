@@ -1,14 +1,15 @@
 
 body {
-	height: 100vh;
+	height: 100%;
 	width: 100vw;
+	margin: 0;
 	overflow: scroll;
-	box-sizing: border-box;
 }
 .content {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	box-sizing: border-box;
 	width: 100vw;
 }
 .nav {
@@ -16,13 +17,13 @@ body {
 	flex-direction: column;
 	align-items: flex-start;
 	padding: 10px;
-	width: 22vw;
+	width: 30vw;
 }
 .main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 78vw;
+	width: 70vw;
 	box-sizing: border-box;
 	margin: 10px;
 }
@@ -33,12 +34,23 @@ body {
 	grid-gap: 15px;
 	margin: 0;
 	list-style: none;
-	width: 78vw;
+	width: 70vw;
 }
-.list__item, .fav__list-item {
+.list__item {
 	display: flex;
 	flex-direction: column-reverse;
 	align-items: center;
+}
+.fav__list-item {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 0;
+}
+.fav__series-title {
+	font-size: 14px;
+	padding-left: 20px;
 }
 .fav {
 	background-color: darkred;
@@ -52,7 +64,8 @@ body {
 	padding: 0;
 }
 .fav_img {
-	width: 150px;
+	height: 100px;
+	width: 70px;
 }
 .fav__title {
 	text-align: center;
@@ -76,6 +89,10 @@ body {
 	font-size: 14px;
 	padding: 4px 10px 5px;;
 	border: none;
+}
+.fas {
+	font-size: 14px;
+	align-self: flex-start;
 }
 
 

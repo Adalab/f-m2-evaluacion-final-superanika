@@ -3,16 +3,38 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>Adalab Web Starter Kit</title>
-        <link rel="icon" href="favicon.png" />
+        <title>Superanika's module 2 final exercise</title>
+        <link rel="icon" href="favicon.png"
+        />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous">
         <link rel="stylesheet" href="assets/css/main.css">
     </head>
     
     <body>
-        <div class="page">
-            <header class="page__header">Header</header>
-            <main class="page__main">Main</main>
+        <header>
+             <h1 class="title">Buscador de series</h1>
+
+        </header>
+        <div class="content">
+            <nav class="nav">
+                <div class="search__field">
+                    <input type="text" class="input">
+                    <button class="button">Search</button>
+                </div>
+                <div class="fav__list hidden">
+                     <h2 class="fav__title">Mis series favoritas</h2>
+
+                    <ul class="fav__series"></ul>
+                </div>
+            </nav>
+            <main class="main">
+                <div class="no__results"></div>
+                <ul class="results"></ul>
+            </main>
         </div>
+        <script src="assets/js/main.js"></script>
     </body>
 
 </html>
