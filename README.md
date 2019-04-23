@@ -4,7 +4,7 @@
 
 Para poder descargarte mi proyecto tienes que clonarlo con el siguiente enlace:
 
-https://github.com/Adalab/f-m2-evaluacion-final-superanika.
+https://github.com/Adalab/f-m2-evaluacion-final-superanika.git
 
 Para poder trabajar con él, necesitas instalar Node.js y Gulp.
 
