@@ -43,8 +43,8 @@ function createList(data){
   }
 }
 
-// Pintar el listado de favorito en pantalla
-function createFavorites() {
+// Pintar el listado de favoritos en pantalla
+function showSavedFavorites() {
   // Recuperar los favoritos
   const savedFav = JSON.parse(localStorage.getItem('savedFav'));
 
@@ -69,7 +69,6 @@ function createFavorites() {
   } else{
     favDiv.classList.add('hidden');
   }
-  
 }
 
 // Pone la clase de favorito al item y añadirlo a localstorage
@@ -129,5 +128,5 @@ function searchSeries() {
 
 button.addEventListener('click',searchSeries);
 
-createFavorites();
+showSavedFavorites();
 
