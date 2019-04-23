@@ -106,24 +106,7 @@ function addFavorite(event) {
   if (!alreadyExist(savedFav, infoFav)) {
     savedFav.push(infoFav);
     localStorage.setItem('savedFav', JSON.stringify(savedFav));
-    const favItem = document.createElement('li');
-    favItem.classList.add('fav__list-item');
-    const icon = document.createElement('i');
-    icon.classList.add('fas');
-    icon.classList.add('fa-times-circle');
-    icon.classList.add('delete__icon');
-    icon.addEventListener('click', deleteFavs);
-    const favTitle = document.createElement('h3');
-    favTitle.classList.add('fav__series-title');
-    const favTitleContent = document.createTextNode(infoFav.title);
-    const favImg = document.createElement('img');
-    favImg.classList.add('fav_img');
-    favImg.src = infoFav.image;
-    favTitle.appendChild(favTitleContent);
-    favItem.appendChild(icon);
-    favItem.appendChild(favTitle);
-    favItem.appendChild(favImg);
-    favSeriesList.appendChild(favItem);
+    createFavs(infoFav);
     favDiv.classList.remove('hidden');
   }
 }
@@ -139,7 +122,8 @@ function alreadyExist(savedFav, infoFav) {
 
 function deleteFavs() {
   const trigger = event.currentTarget;
-  trigger.parentElement.classList.add('hidden');
+  const parent = trigger.parentElement;
+  parent.remove(trigger);
 }
 
 function searchSeries() {
