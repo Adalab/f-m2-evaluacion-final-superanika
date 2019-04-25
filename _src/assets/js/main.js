@@ -22,6 +22,7 @@ function getSeries(){
       }
     });
 }
+
 function errorMsg() {
   const error = document.createElement('p');
   const errorMessage = document.createTextNode('La búsqueda realizada no ha obtenido resultados');
@@ -120,7 +121,7 @@ function alreadyExist(savedFav, infoFav) {
   return false;
 }
 
-function deleteFavs() {
+function deleteFavs(event) {
   const trigger = event.currentTarget;
   const parent = trigger.parentElement;
   parent.remove(trigger);
